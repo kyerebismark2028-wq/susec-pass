@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,html{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            font-family:sans-serif;
+        }
+        .section_top{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background-image: url(images1.jpeg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            justify-content: center;
+            animation: change 30s infinite ease-in-out;
+        }
+        .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-transform: uppercase;
+        }
+        .content h1{
+            color: #fff;
+            font-size: 60px;
+            letter-spacing: 15px;
+
+        }
+        .content h1 span{
+            color: #FFF;
+        }
+        .content a{
+            background: white;
+            padding: 10px 24px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 20px;
+
+        }
+        .content a:hover{
+            background: #034e88;
+            color: white;
+
+        }
+        @keyframes change {
+            0%
+            {
+                background-image: url(images2.jpeg);
+            }
+            20%
+            {
+                background-image: url(images3.jpg);
+            }
+            40%
+            {
+                background-image: url(images4.jpg);
+            }
+            60%
+            {
+                background-image: url(images1.jpeg);
+            }
+            80%
+            {
+                background-image: url(images2.jpeg);
+            }
+            100%
+            {
+                background-image: url(images3.jpg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section_top">
+        <div class="content">
+            <h1>SUSEC <span>PASSPORT SITE</span></h1>
+            <a href="index2.html">CLICK ON ME TO START EDIT</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Passport Photo Resizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            /* Background image */
+            background-image: url('images.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        
+        /* Semi-transparent overlay for better readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: -1;
+        }
+        
+        /* Main content container */
+        .main-content {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed #007bff;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            background-color: rgba(0, 123, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: #0056b3;
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .preview-item {
+            width: 150px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .preview-img {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border: 1px solid #eee;
+            border-radius: 3px;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+        
+        #downloadBtn {
+            background: #28a745;
+        }
+        
+        #downloadBtn:hover {
+            background: #218838;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        
+        #clearBtn {
+            background: #dc3545;
+        }
+        
+        #clearBtn:hover {
+            background: #c82333;
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        .bi{
+            width: 60px;
+            border-radius: 15px;
+            
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Header styling */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            text-align: center;
+            color: #34495e;
+        }
+        
+        /* File counter */
+        .file-counter {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                margin: 5px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>📸 Passport Photo Resizer</h1>
+        <p>Resize photos to 150px × 200px (JPG format)</p>
+        
+        <div class="upload-area" id="uploadArea">
+            <h3><img class="bi" src="bis.png" alt=""><br><br> Upload Photos</h3>
+            <p>Drag & drop or click to browse</p>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+            <button onclick="document.getElementById('fileInput').click()">Choose Files</button>
+        </div>
+        
+        <div class="file-counter">
+            Photos uploaded: <span id="fileCount">0</span>
+        </div>
+        
+        <div class="controls">
+            <button onclick="processImages()" id="processBtn">Process All (150×200px)</button>
+            <button onclick="downloadAll()" id="downloadBtn" style="display:none;">Download Resized Photos</button>
+            <button onclick="clearAll()" id="clearBtn">Clear All</button>
+        </div>
+        
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <p>Processing images...</p>
+        </div>
+        
+        <div id="previewContainer" class="preview-container">
+            <!-- Preview images will appear here -->
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let uploadedFiles = [];
+        let processedImages = [];
+        
+        // Setup drag and drop
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileCount = document.getElementById('fileCount');
+        
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#0056b3';
+            uploadArea.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#007bff';
+            uploadArea.style.backgroundColor = 'rgba(0, 123, 255, 0.05)';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#007bff';
+            uploadArea.style.backgroundColor = 'rgba(0, 123, 255, 0.05)';
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        // Handle selected files
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    uploadedFiles.push(file);
+                    createPreview(file);
+                }
+            }
+            updateProcessButton();
+            updateFileCount();
+        }
+        
+        // Update file count
+        function updateFileCount() {
+            fileCount.textContent = uploadedFiles.length;
+        }
+        
+        // Create preview for a file
+        function createPreview(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const container = document.getElementById('previewContainer');
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+                div.innerHTML = `
+                    <img src="${e.target.result}" class="preview-img">
+                    <p style="font-size:12px; margin:5px 0;">${file.name}</p>
+                    <p style="font-size:11px; color:#666;">${Math.round(file.size/1024)}KB</p>
+                `;
+                container.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Update process button visibility
+        function updateProcessButton() {
+            const btn = document.getElementById('processBtn');
+            btn.style.display = uploadedFiles.length > 0 ? 'inline-block' : 'none';
+        }
+        
+        // Process all images
+        async function processImages() {
+            if (uploadedFiles.length === 0) {
+                alert('Please upload photos first!');
+                return;
+            }
+            
+            // Show loader
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('processBtn').disabled = true;
+            
+            processedImages = [];
+            
+            for (let file of uploadedFiles) {
+                try {
+                    const resized = await resizeImage(file, 150, 200);
+                    const fileName = file.name.replace(/\.[^/.]+$/, "") + "_resized.jpg";
+                    processedImages.push({
+                        name: fileName,
+                        blob: resized
+                    });
+                } catch (error) {
+                    console.error('Error processing:', file.name, error);
+                }
+            }
+            
+            // Hide loader
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('processBtn').disabled = false;
+            
+           // Show download button
+if (processedImages.length > 0) {
+    document.getElementById('downloadBtn').style.display = 'inline-block';
+    alert(`Processed ${processedImages.length} image(s)! Click "Download" button.`);
+}
+
+        }
+        
+        // Resize a single image
+        function resizeImage(file, width, height) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        // Draw and resize image
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Convert to JPG
+                        canvas.toBlob(blob => {
+                            if (blob) {
+                                resolve(blob);
+                            } else {
+                                reject('Failed to create blob');
+                            }
+                        }, 'image/jpeg', 0.9);
+                    };
+                    
+                    img.onerror = reject;
+                };
+                
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // Download all processed images
+        function downloadAll() {
+            if (processedImages.length === 0) {
+                alert('No processed images to download.');
+                return;
+            }
+            
+            // Download individually if only one image
+            if (processedImages.length === 1) {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(processedImages[0].blob);
+                link.download = processedImages[0].name;
+                link.click();
+                return;
+            }
+            
+            // Try to use JSZip if available
+            if (typeof JSZip !== 'undefined') {
+                createZip();
+            } else {
+                downloadIndividual();
+            }
+        }
+        
+        // Create ZIP file (requires JSZip library)
+        function createZip() {
+            const zip = new JSZip();
+            
+            processedImages.forEach(img => {
+                zip.file(img.name, img.blob);
+            });
+            
+            zip.generateAsync({type: "blob"})
+                .then(content => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(content);
+                    link.download = 'passport_photos.zip';
+                    link.click();
+                })
+                .catch(() => {
+                    // Fallback to individual download
+                    downloadIndividual();
+                });
+        }
+        
+        // Download images individually
+        function downloadIndividual() {
+            processedImages.forEach(img => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(img.blob);
+                link.download = img.name;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+        
+        // Clear all files
+        function clearAll() {
+            if (uploadedFiles.length === 0) return;
+            
+            if (confirm('Clear all uploaded photos?')) {
+                uploadedFiles = [];
+                processedImages = [];
+                document.getElementById('previewContainer').innerHTML = '';
+                document.getElementById('downloadBtn').style.display = 'none';
+                document.getElementById('processBtn').style.display = 'none';
+                fileCount.textContent = '0';
+            }
+        }
+    </script>
+    
+    <!-- JSZip library (optional, for ZIP download) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</body>
+</html>
+
